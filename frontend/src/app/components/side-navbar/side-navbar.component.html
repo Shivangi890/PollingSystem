@@ -1,0 +1,24 @@
+<div class="side-nav-container flex h-screen dark:bg-custom-black">
+    @if (isSideNav()) {
+        <div class="navigation-container flex w-80 py-4 px-4 gap-y-4 flex-col border-r-2">
+            <div class="logo-section h-4"></div>
+            <div class="items-container flex-1">
+                @for (item of navItems; track $index) {
+                    <div (click)="selectTab(item)" [ngClass]="{'bg-custom-grey': item.active, 'text-white': 
+                    item.active}" class="nav cursor-pointer dark:text-custom-textWhite p-4 text-lg rounded-lg flex gap-x-2
+                    font-bold bg-custom-grey">
+                        <fa-icon [icon]="item.icon"></fa-icon>
+                        {{item.name}}
+                    </div>
+                }
+            </div>
+            <button class="btn w-full cursor-pointer flex gap-x-2 justify-center" (click)="logOut()">
+                Log Out 
+                <fa-icon [size]="'sm'" class="text-white" [icon]="faSignOutAlt"></fa-icon>
+            </button>
+        </div>
+    }
+    <div class="router-section overflow-y-scroll flex-1">
+        <ng-content></ng-content>
+    </div>
+</div>

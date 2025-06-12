@@ -1,0 +1,42 @@
+<div class="poll-card-container p-6 top-highlighted-box overflow-hidden flex flex-col self-stretch w-full gap-y-4 h-full">
+    <span class="text-black dark:text-white font-bold text-2xl">{{ config.title }}</span>
+    @if (config.hasVoted || config.isOwner) {
+        <div class="options-container flex flex-col flex-1 gap-y-2">
+            @for (item of config.options; track $index) {
+                <div class="text-section flex justify-between items-center">
+                    <span class="dark:text-white text-black text-lg z-10">{{ item.name }}</span>
+                    <span class="dark:text-white text-black text-lg z-10">{{ item.count / config.totalVotes | percent }}</span>
+                </div>
+                <div class="option overflow-hidden flex justify-between h-5 bg-gray-50 dark:bg-gray-900 border-custom-progressBorder relative border-[1px] border-solid text-black dark:text-white rounded-lg">
+                    <div [style.width]="item.count / config.totalVotes | percent" class="progress-container absolute top-0 left-0 h-full z-2 bg-blue-400"></div>
+                </div>
+            }
+        </div>
+    }
+    @if(!config.isOwner && !config.hasVoted) {
+        <div class="options-container flex flex-col gap-y-2">
+            @for (item of config.options; track $index) {
+                <div [ngClass]="{'bg-custom-boxBorderTop': +item.id === selectedIndex}"(click)="selectOption(item.id)"
+                class="option text-black dark:text-white p-4 w-full border-2 border-custom-boxBorder border-solid rounded-lg font-medium text-base cursor-pointer">
+                    {{item.name}}
+                </div>
+            }
+        </div>
+        <div class="button-section w-full flex justify-end py-4">
+            <button (click)="handleVote()" [disabled]="selectedIndex < 0" class="btn text-white">Vote</button>
+        </div>
+    }
+    <div class="footer-section relative w-full">
+        <div class="line-section absolute top-0 -left-6 w-screen h-[2px] bg-custom-boxBorder"></div>
+        
+        <span class="text-gray-400 w-full text-lg font-medium block mb-2 mt-2">
+            {{ config.totalVotes + ' ' + ((config.totalVotes > 1 || config.totalVotes === 0) ? 'Votes' : 'Vote') }}
+        </span>
+
+        @if(isAdmin) {
+            <div class="button-section w-full flex gap-x-3">
+                <button (click)="handleDelete()" class="btn bg-red-500 text-white">Delete</button>
+            </div>
+        }
+    </div>
+</div>

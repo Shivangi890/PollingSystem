@@ -1,0 +1,45 @@
+
+<div class="register-container w-full h-full items-center pt-20 flex flex-col">
+    <h1 class="w-full text-center text-4xl font-bold dark:text-white">Create a free account</h1>
+
+    <span class="mt-4 mb-8 dark:text-white cursor-pointer" (click)="goToLogin()">
+        Login to your account
+    </span>
+
+    <div class="poll-card w-2/3 p-10 flex flex-col gap-y-6 top-highlighted-box mb-6" [formGroup]="registerForm">
+        <div class="input-section flex flex-col gap-2">
+            <label class="dark:text-white text-lg font-medium">Name</label>
+            <input type="text" class="input" placeholder="Name" formControlName="name">
+        </div>
+        <div class="input-section flex flex-col gap-2">
+            <label class="dark:text-white text-lg font-medium">Email</label>
+            <input type="email" class="input" placeholder="Email" formControlName="email">
+        </div>
+        <div class="input-section flex flex-col gap-2">
+            <label class="dark:text-white text-lg font-medium">Password</label>
+            <input type="password" class="input" placeholder="Password" formControlName="password">
+            <div *ngIf="registerForm.get('password')?.hasError('invalidPassword') && 
+            registerForm.get('password')?.touched">Invalid Password</div>
+        </div>
+        <div class="input-section flex flex-col gap-2">
+            <label class="dark:text-white text-lg font-medium">Confirm Password</label>
+            <input type="password" class="input" placeholder="Confirm Password" formControlName="confirmPassword">
+            <div *ngIf="registerForm.get('confirmPassword')?.hasError('invalidPassword') && 
+            registerForm.get('confirmPassword')?.touched">Invalid Password</div>
+        </div>
+
+        <div class="footer-section w-full flex flex-col gap-y-4">
+            <button class="btn w-full" [disabled]="!registerForm.valid || registerForm.value.confirmPassword != registerForm.value.password" (click)="registerUser()">Register</button>
+            <div class="w-full flex justify-center items-center before:flex-1 before:h-[2px] before:bg-custom-boxBorder 
+            after:flex-1 after:h-[2px] after:bg-custom-boxBorder">
+            <span class="px-3 dark:text-white">Or continue with</span>
+            </div>
+            <button class="btn w-full gap-x-2 flex justify-center text-black dark:text-white bg-transparent border-2 border-solid border-custom-progressBorder">
+                <fa-icon [size]="'lg'" [icon]="faGoogle"></fa-icon>
+                Sign up with Google
+            </button>
+        </div>
+
+    </div>
+
+</div>

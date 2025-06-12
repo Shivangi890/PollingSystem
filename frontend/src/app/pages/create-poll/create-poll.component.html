@@ -1,0 +1,34 @@
+<div class="create-poll-container w-full items-center pt-20 flex flex-col mb-4">
+    <h1 class="w-full text-center text-4xl font-bold dark:text-white">Create a poll</h1>
+    <span class="mt-4 mb-8 dark:text-white">Complete the form to create a poll</span>
+
+    <div [formGroup]="pollForm" class="poll-card w-3/4 p-10 flex flex-col gap-y-4 top-highlighted-box">
+        <div class="input-section flex flex-col gap-2">
+            <label for="" class="dark:text-white font-medium text-lg">Title</label>
+            <input type="text" class="input" placeholder="Type your question here" formControlName="title">
+        </div>
+        <div class="input-section flex flex-col gap-y-2">
+            <label for="" class="dark:text-white font-medium text-lg">Answer Opions</label>
+            <ng-container formArrayName="options">
+                @for (optionForm of options.controls; track $index) {
+                    <ng-container [formGroup]="getGroup($index)">
+                        <div class="icon-input relative">
+                            <input type="text" formControlName="option" class="input" placeholder="Option {{ $index + 1  }}">
+
+                            @if (options.controls.length > 2) {
+                                <fa-icon (click)="removeOption($index)" [icon]="faTimesCircle" 
+                                class="absolute h-full dark:text-white top-0 right-4 flex items-center"></fa-icon>
+                            }
+                        </div>
+                    </ng-container>
+                }
+            </ng-container>
+        </div>
+
+        <button (click)="addOption()" class="btn bg-custom-boxBorder flex gap-x-2"><fa-icon [icon]="faPlus"></fa-icon>Add Option</button>
+        <div class="footer-section w-full">
+            <button (click)="handleCreatePoll()" [disabled]="pollForm.invalid" class="btn w-full">Create Poll</button>
+        </div>
+    </div>
+
+</div>

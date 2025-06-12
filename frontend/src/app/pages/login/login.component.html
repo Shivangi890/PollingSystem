@@ -1,0 +1,31 @@
+<div class="login-container w-full items-center pt-20 flex flex-col">
+    <h1 class="w-full text-center text-4xl font-bold dark:text-white">Login to your account</h1>
+
+    <span class="mt-4 mb-8 dark:text-white">
+        Or <span class="text-custom-boxBorderTop underline cursor-pointer" (click)="goToRegister()">Create a free account</span>
+    </span>
+
+    <div class="poll-card w-2/3 p-10 flex flex-col gap-y-6 top-highlighted-box mb-6" [formGroup]="loginForm">
+        <div class="input-section flex flex-col gap-2">
+            <label class="dark:text-white text-lg font-medium">Email</label>
+            <input formControlName="email" type="email" class="input" placeholder="Email">
+        </div>
+        <div class="input-section flex flex-col gap-2">
+            <label class="dark:text-white text-lg font-medium">Password</label>
+            <input formControlName="password" type="password" class="input" placeholder="Password">
+        </div>
+
+        <div class="footer-section w-full flex flex-col gap-y-4">
+            <button (click)="signIn()" class="btn w-full" [disabled]="loginForm.invalid">Login</button>
+            <div class="w-full flex justify-center items-center before:flex-1 before:h-[2px] before:bg-custom-boxBorder 
+            after:flex-1 after:h-[2px] after:bg-custom-boxBorder">
+                <span class="px-3 dark:text-white">Or continue with</span>
+            </div>
+            <button (click)="handleGoggleLogin()" class="btn w-full gap-x-2 flex justify-center text-black dark:text-white bg-transparent border-2 border-solid border-custom-progressBorder">
+                <fa-icon [size]="'lg'" [icon]="faGoogle"></fa-icon>
+                Sign in with Google
+            </button>
+        </div>
+    </div>
+
+</div>
